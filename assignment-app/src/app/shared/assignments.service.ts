@@ -4,7 +4,7 @@ import { forkJoin, Observable, of } from 'rxjs';
 import { LoggingService } from './logging.service';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
-import * as data from './assignments.json';
+import * as data from 'app/shared/assignments.json';
 
 @Injectable({
   providedIn: 'root',
