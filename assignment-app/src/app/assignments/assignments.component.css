@@ -1,0 +1,29 @@
+.rendu {
+  color:'green';
+  border: 1px solid green;
+  background-color:yellow;
+}
+
+.nonRendu {
+  color:'red';
+  border: 1px solid green;
+}
+
+.container {
+  display:flex;
+  flex-direction: column;
+}
+
+.ajouterBtn {
+  align-self: flex-end;
+}
+
+.example-viewport {
+  height: 400px;
+  width: 600px;
+  border: 1px solid black;
+}
+
+.example-item {
+  height: 50px;
+}
