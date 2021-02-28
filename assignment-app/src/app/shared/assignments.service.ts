@@ -37,6 +37,7 @@ export class AssignmentsService {
   ) {}
 
   uri = 'http://localhost:8010/api/assignments';
+  assignments_json: any = (data as any).default;
 
   getAssignments(): Observable<Assignment[]> {
     //return of(this.assignments);
@@ -135,7 +136,6 @@ export class AssignmentsService {
     return this.http.delete(this.uri + '/' + assignment._id);
   }
 
-  assignments_json: any = (data as any).default;
 
   peuplerBD(){
     for (let i = 0; i < this.assignments_json.length; i++) {
