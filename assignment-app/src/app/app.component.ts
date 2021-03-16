@@ -13,12 +13,5 @@ export class AppComponent {
 
   titre = 'Application de gestion des Assignments';
 
-  logInOut() {
-    if(this.authService.loggedIn) {
-      this.authService.logOut();
-      this.router.navigate(["/home"]);
-    } else {
-      this.authService.logIn();
-    }
-  }
+
 }

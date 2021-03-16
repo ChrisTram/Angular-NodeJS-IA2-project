@@ -1,7 +1,8 @@
   <nav>
     <h1><a routerLink="/home">{{titre}}</a></h1>
   </nav>
-  <mat-slide-toggle color="primary" (click)="logInOut()">Log in</mat-slide-toggle>
+
+  <app-usercomponent></app-usercomponent>
   <router-outlet></router-outlet>
 <!--
 <app-assignments></app-assignments>

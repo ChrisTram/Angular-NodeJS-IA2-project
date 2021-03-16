@@ -1,0 +1,31 @@
+<p>hello {{this.getUserStr()}}</p>
+<mat-slide-toggle color="primary"  [disabled]="this.isLogin() != true" [checked]="this.isLogin() == true" (change)="this.logOut()">Connecté</mat-slide-toggle>
+
+
+<div *ngIf="this.isLogin() != true">
+<form class="form" #formLogin>
+    <mat-form-field>
+      <input matInput
+             placeholder="Nom d'utilisateur"
+             [(ngModel)]="usernameForm"
+             name="usernameForm"
+      >
+    </mat-form-field>
+  
+    <mat-form-field>
+        <input matInput
+               placeholder="Mot de Passe"
+               [(ngModel)]="password"
+               name="password"
+        >
+
+      </mat-form-field>
+
+  
+    <button  mat-raised-button color="accent"
+            (click)="onLoginSubmit();"
+    >
+      Se connecter
+    </button>
+  </form>
+</div>

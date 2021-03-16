@@ -24,6 +24,8 @@ import { EditAssignmentComponent } from './assignments/edit-assigment/edit-assig
 import { AuthGuard } from './shared/auth.guard';
 import { HttpClientModule } from '@angular/common/http';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import { UserComponent } from './usercomponent/usercomponent.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 const routes:Routes = [
   {
@@ -56,14 +58,15 @@ const routes:Routes = [
     RenduDirective,
     ComponentDetailComponent,
     AddAssignementComponent,
-    EditAssignmentComponent
+    EditAssignmentComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule, MatIconModule, MatDividerModule,
     MatInputModule, MatFormFieldModule,
-    MatDatepickerModule, MatNativeDateModule,
+    MatDatepickerModule, MatNativeDateModule, MatSnackBarModule,
     MatListModule, MatCardModule, MatCheckboxModule,
     MatSlideToggleModule,
     FormsModule, HttpClientModule, ScrollingModule,

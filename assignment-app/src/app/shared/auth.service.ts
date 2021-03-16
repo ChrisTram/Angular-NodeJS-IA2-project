@@ -12,16 +12,18 @@ import * as data from 'app/shared/assignments.json';
   providedIn: 'root'
 })
 export class AuthService {
-  loggedIn:boolean = false;
 
   constructor(
     private loggingService: LoggingService,
     private http: HttpClient
-  ) {}
+  ) {this.loggedIn = false}
+
   uri = 'http://localhost:8010/api/users';
   assignments_json: any = (data as any).default;
-  logIn() {
-    
+  actualUser:User;
+  loggedIn:boolean = false;
+
+  logIn() {    
     this.loggedIn = true;
   }
 
@@ -30,12 +32,11 @@ export class AuthService {
   }
 
   getUser(username: string): Observable<User> {
-    //let result = this.assignments.find(a => (a.id === id));
-
-    //return of(result);
     return this.http.get<User>(this.uri + '/' + username)
     .pipe(
       map(a => {
+        this.logIn()
+        this.actualUser = a;
         return a;
       }),
       tap(a => {
@@ -54,12 +55,27 @@ export class AuthService {
       return of(result as T);
     }
   }
+
+  getUserStr():String {
+    if(this.loggedIn) {
+      return this.actualUser.username
+    }
+  }
   
+
   isAdmin():Promise<any> {
     const isUserAdmin = new Promise((resolve, reject) => {
-      resolve(this.loggedIn);
+      resolve(this.actualUser.isAdmin);
     });
 
     return isUserAdmin;
     }
+
+
+  isLogin():Observable<any> {
+    const isLog = new Observable(observer => {
+      observer.next(this.loggedIn);
+  });
+  return isLog
+  }
 }

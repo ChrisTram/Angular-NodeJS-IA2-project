@@ -46,7 +46,7 @@ export class ComponentDetailComponent implements OnInit {
     this.assignementTransmis.rendu = true;
     this.assignmentsService.updateAssignment(this.assignementTransmis)
       .subscribe(message => {
-        console.log("assignment mis à jour");
+        console.log("assignment mis à jour - " + message);
         this.router.navigate(["/home"]);
       });
   }

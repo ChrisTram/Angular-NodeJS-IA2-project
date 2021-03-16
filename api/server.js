@@ -55,8 +55,10 @@ app.route(prefix + '/assignments')
   .post(assignment.postAssignment)
   .put(assignment.updateAssignment);
 
+  app.route(prefix + '/users')
+  .get(user.getUsers);
 
-app.route(prefix + '/users/:id')
+app.route(prefix + '/users/:username')
   .get(user.getUser)
   .delete(user.deleteUser);
 
