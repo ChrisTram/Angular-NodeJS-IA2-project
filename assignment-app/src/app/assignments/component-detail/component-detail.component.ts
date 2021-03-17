@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'app/shared/auth.service';
 import { AssignmentsService } from 'app/shared/assignments.service';
 import { Assignment } from '../assignment.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-component-detail',
@@ -15,7 +16,8 @@ export class ComponentDetailComponent implements OnInit {
   constructor(private assignmentsService: AssignmentsService,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getAssignment();
@@ -37,18 +39,24 @@ export class ComponentDetailComponent implements OnInit {
     this.assignmentsService.deleteAssignment(this.assignementTransmis)
       .subscribe(message => {
         console.log(message);
+        this._snackBar.open('L\'assignement ' + this.assignementTransmis.nom + ' a été supprimé', "Fermer", { duration: 3000 });
         this.assignementTransmis = null;
         this.router.navigate(["/home"]);
       });
   }
 
   onAssignementRendu() {
-    this.assignementTransmis.rendu = true;
-    this.assignmentsService.updateAssignment(this.assignementTransmis)
-      .subscribe(message => {
-        console.log("assignment mis à jour - " + message);
-        this.router.navigate(["/home"]);
-      });
+    if(this.loggedIn()) {
+      this.assignementTransmis.rendu = true;
+      this.assignmentsService.updateAssignment(this.assignementTransmis)
+        .subscribe(message => {
+          console.log("assignment mis à jour - " + message);
+          this.router.navigate(["/home"]);
+        });
+    } else {
+      this._snackBar.open('Vous devez être connecté pour effectuer cette action', "Fermer", { duration: 3000 });
+    }
+
   }
 
   onClickEdit() {
@@ -72,5 +80,52 @@ export class ComponentDetailComponent implements OnInit {
     this.authService.isAdmin().subscribe(val => { result = val; })
     console.log(result)
     return result
+  }
+
+  getPicture(assignment: Assignment): string {
+    var genre = ""
+
+    if ( Number(assignment.id.toString()[1]) < 5) {
+      genre = "men"
+    } else {
+      genre = "women"
+    }
+    let nb;
+    
+    if(assignment.note != null) {
+      nb = assignment.note
+    } else {
+      nb = assignment.id.toString()[0]
+    }
+
+    if (assignment.image === "null") {
+      assignment.image = "https://randomuser.me/api/portraits/" + genre + "/" + nb + ".jpg"
+    }
+    return "background-image: url( '" + assignment.image + "'); background-size: cover;";
+
+
+  }
+
+  getImage(matiere: string): string {
+    const matieres = [
+      'Histoire',
+      'Computer Vision',
+      'BD',
+      'WEB',
+      'JAVA',
+      'Angular',
+      'Anglais',
+      'Machine Learning',
+      'Deep Learning',
+      'SVT',
+      'Maths',
+      'SI',
+      'Compta'
+    ]
+    if (matieres.indexOf(matiere) >= 0) {
+      return "assets/" + matiere + ".jpg";
+    } else {
+      return "assets/default.jpg";
+    }
   }
 }

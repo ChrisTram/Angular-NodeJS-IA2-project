@@ -142,7 +142,7 @@ export class AssignmentsService {
       new_assignment.matiere = a.matiere;
       new_assignment.remarques = a.remarques;
       new_assignment.image = a.image;
-      if (a.note) {
+      if (a.note != null) {
         new_assignment.rendu = true;
       } else {
         new_assignment.rendu = false;

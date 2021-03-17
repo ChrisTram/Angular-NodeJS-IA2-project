@@ -40,7 +40,7 @@
 
       <mat-form-field>
         <mat-label>Note</mat-label>
-        <input type="number" matInput formControlName="note" placeholder="Note / 20" required>
+        <input type="number" matInput formControlName="note" placeholder="Note / 20">
       </mat-form-field>
 
       <mat-form-field>
@@ -56,7 +56,7 @@
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Ajouter</ng-template>
-    <p>Votre assignment a été ajouté à la liste actuelle</p>
+    <p></p>
     <div>
       <button mat-button routerLink="/home">Retour à la liste des assignments</button>
       <button mat-button (click)="stepper.reset()">Ajouter un nouvel assignment</button>

@@ -111,15 +111,21 @@ export class AssignmentsComponent implements OnInit {
   getPicture(assignment: Assignment): string {
     var genre = ""
 
-    if (Math.random() < 0.5) {
+    if ( Number(assignment.id.toString()[1]) < 5) {
       genre = "men"
     } else {
       genre = "women"
     }
-
+    let nb;
+    
+    if(assignment.note != null) {
+      nb = assignment.note
+    } else {
+      nb = assignment.id.toString()[0]
+    }
 
     if (assignment.image === "null") {
-      assignment.image = "https://randomuser.me/api/portraits/" + genre + "/" + assignment.note + ".jpg"
+      assignment.image = "https://randomuser.me/api/portraits/" + genre + "/" + nb + ".jpg"
     }
     return "background-image: url( '" + assignment.image + "'); background-size: cover;";
 

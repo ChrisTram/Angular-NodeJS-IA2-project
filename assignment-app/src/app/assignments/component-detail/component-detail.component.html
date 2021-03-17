@@ -1,19 +1,38 @@
 <div class="container content">
-  <mat-card *ngIf="assignementTransmis" style="width: 100%;">
-    <mat-card-title>{{assignementTransmis.nom}}</mat-card-title>
-    <mat-card-subtitle>{{assignementTransmis.dateDeRendu | date}}</mat-card-subtitle>
-    <mat-checkbox *ngIf="!assignementTransmis.rendu" (click)="onAssignementRendu()">
-      Assignment rendu
-    </mat-checkbox>
+  <mat-card *ngIf="assignementTransmis" class="example-card" style="margin: 10px">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image" [style]="this.getPicture(assignementTransmis)"></div>
+      <mat-card-title>{{assignementTransmis.nom}}</mat-card-title>
+      <mat-card-subtitle>Date de rendu : {{assignementTransmis.dateDeRendu |date:'d-MM-YYYY HH:mm:ss'}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]=getImage(assignementTransmis.matiere)>
 
-        <button mat-flat-button color="primary"
-                [disabled]="!isAdmin()"
-                (click)="onClickEdit()">
-          EDIT
-        </button>
-
-    <button mat-flat-button color="warn" (click)="onDelete()" [disabled]="!isAdmin()"> 
-      DELETE
-    </button>
+    <mat-card-content>
+      <p appRendu *ngIf="assignementTransmis.rendu; else nonSoumis">
+        Devoir intitulé {{assignementTransmis.nom}} a été rendu.
+      </p>
+      <ng-template #nonSoumis>
+        <p>Le devoir {{assignementTransmis.nom}} n'a pas été rendu.</p>
+      </ng-template>
+      <p>Auteur : {{assignementTransmis.auteur}}</p>
+      <p *ngIf="assignementTransmis.rendu;">Note : {{assignementTransmis.note}}</p>
+      <p *ngIf="assignementTransmis.rendu;">Remarques : {{assignementTransmis.remarques}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <mat-checkbox *ngIf="!assignementTransmis.rendu" (click)="onAssignementRendu()" [disabled]="!loggedIn()">
+        Assignment rendu
+      </mat-checkbox>
+  
+          <button mat-flat-button color="primary"
+                  [disabled]="!isAdmin()"
+                  (click)="onClickEdit()">
+            EDIT
+          </button>
+  
+      <button mat-flat-button color="warn" (click)="onDelete()" [disabled]="!isAdmin()"> 
+        DELETE
+      </button>
+    </mat-card-actions>
   </mat-card>
+
 </div>
