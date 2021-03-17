@@ -6,9 +6,8 @@ import { Directive, ElementRef } from '@angular/core';
 export class RenduDirective {
 
   constructor(el: ElementRef) {
-    el.nativeElement.style.color = 'green';
-    el.nativeElement.style.border = '1px dashed green';
-    el.nativeElement.style.backgroundColor = 'yellow';
+    el.nativeElement.style.color = 'black';
+    el.nativeElement.style.backgroundColor = '#8ad9ff';
 
     // ici on pourrait modifier le contenu de l'élément
     // par ex : el.nativeElement.innerHTML = ....

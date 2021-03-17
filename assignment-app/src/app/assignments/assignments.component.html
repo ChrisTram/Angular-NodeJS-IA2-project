@@ -18,6 +18,8 @@
           <mat-card-title>{{assignment.nom}}</mat-card-title>
           <mat-card-subtitle>Date de rendu : {{assignment.dateDeRendu |date:'d-MM-YYYY HH:mm:ss'}}</mat-card-subtitle>
         </mat-card-header>
+        <img mat-card-image [src]=getImage(assignment.matiere)>
+
         <mat-card-content>
           <p appRendu *ngIf="assignment.rendu; else nonSoumis">
             Devoir intitulé {{assignment.nom}} a été rendu.

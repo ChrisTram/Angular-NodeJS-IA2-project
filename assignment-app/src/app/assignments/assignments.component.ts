@@ -138,5 +138,30 @@ export class AssignmentsComponent implements OnInit {
     }
   }
 
+  getImage(matiere:string):string {
+    const matieres = [
+      'Histoire',
+      'Computer Vision',
+      'BD',
+      'WEB',
+      'JAVA',
+      'Angular',
+      'Anglais',
+      'Machine Learning',
+      'Deep Learning',
+      'SVT',
+      'Maths',
+      'SI',
+      'Compta'
+    ]
+    if(matieres.indexOf(matiere) >= 0) {
+      return "assets/" + matiere + ".jpg";
+    } else {
+      return "assets/default.jpg";
+
+    }
+
+  }
+
 
 }
