@@ -27,6 +27,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { UserComponent } from './usercomponent/usercomponent.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatSelectModule} from '@angular/material/select';
 
 const routes: Routes = [
   {
@@ -67,7 +68,7 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule, MatIconModule, MatDividerModule,
-    MatInputModule, MatFormFieldModule, MatStepperModule,
+    MatInputModule, MatFormFieldModule, MatStepperModule, MatSelectModule,
     MatDatepickerModule, MatNativeDateModule, MatSnackBarModule,
     MatListModule, MatCardModule, MatCheckboxModule,
     MatSlideToggleModule,

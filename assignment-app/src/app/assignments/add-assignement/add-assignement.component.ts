@@ -4,17 +4,42 @@ import { AssignmentsService } from 'app/shared/assignments.service';
 import { Assignment } from '../assignment.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+interface Matiere {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-add-assignement',
   templateUrl: './add-assignement.component.html',
   styleUrls: ['./add-assignement.component.css']
 })
+
+
 export class AddAssignementComponent implements OnInit {
   // form
   nomDevoir: string;
   dateRendu: Date;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+
+  matieres: Matiere[] = [
+    {value: 'Histoire', viewValue: 'Histoire'},
+    {value: 'Computer Vision', viewValue: 'Computer Vision'},
+    {value: 'BD', viewValue: 'BD'},
+    {value: 'WEB', viewValue: 'WEB'},
+    {value: 'JAVA', viewValue: 'JAVA'},
+    {value: 'Angular', viewValue: 'Angular'},
+    {value: 'Anglais', viewValue: 'Anglais'},
+    {value: 'Machine Learning', viewValue: 'Machine Learning'},
+    {value: 'Deep Learning', viewValue: 'Deep Learning'},
+    {value: 'SVT', viewValue: 'SVT'},
+    {value: 'Maths', viewValue: 'Maths'},
+    {value: 'SI', viewValue: 'SI'},
+    {value: 'Compta', viewValue: 'Compta'},
+
+  ];
 
   constructor(private assignmentsService: AssignmentsService,
     private router: Router, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar) { }
