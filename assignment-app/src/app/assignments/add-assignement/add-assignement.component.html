@@ -1,27 +1,65 @@
-<form class="form content" #formAssignment>
-  <mat-form-field>
-    <input matInput
-           placeholder="Nom du devoir"
-           [(ngModel)]="nomDevoir"
-           name="nom"
-    >
-  </mat-form-field>
+<mat-vertical-stepper #stepper class="content">
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Infos assignment</ng-template>
 
-  <mat-form-field>
-    <input matInput
-           [matDatepicker]="picker"
-          placeholder="Date de rendu"
-          [(ngModel)]="dateRendu"
-          name="date"
-    >
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+      <mat-form-field>
+        <mat-label>Nom de l'assignment</mat-label>
+        <input matInput placeholder="Nom de l'assignment" formControlName="nom" required>
+      </mat-form-field>
 
-  <button mat-stroked-button
-          color="primary"
-          (click)="onSubmit(); formAssignment.reset()"
-  >
-    Ajouter un devoir
-  </button>
-</form>
+      <mat-form-field>
+        <mat-label>Matiere</mat-label>
+        <input matInput placeholder="Matiere" formControlName="matiere" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Photo de l'enseignant</mat-label>
+        <input matInput placeholder="Photo de l'enseignant" formControlName="photo" required>
+      </mat-form-field>
+
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Notation</ng-template>
+
+      <mat-form-field>
+        <mat-label>Nom de l'élève</mat-label>
+        <input matInput formControlName="auteur" placeholder="Nom de l'élève" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Date de rendu" formControlName="dateDeRendu" name="date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Note</mat-label>
+        <input type="number" matInput formControlName="note" placeholder="Note / 20" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Remarques</mat-label>
+        <input matInput formControlName="remarques" placeholder="Remarques" required>
+      </mat-form-field>
+
+      <div>
+        <button mat-button matStepperPrevious>Retour</button>
+        <button mat-button matStepperNext (click)="submitStepperForm()">Ajouter</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Ajouter</ng-template>
+    <p>Votre assignment a été ajouté à la liste actuelle</p>
+    <div>
+      <button mat-button routerLink="/home">Retour à la liste des assignments</button>
+      <button mat-button (click)="stepper.reset()">Ajouter un nouvel assignment</button>
+    </div>
+  </mat-step>
+</mat-vertical-stepper>

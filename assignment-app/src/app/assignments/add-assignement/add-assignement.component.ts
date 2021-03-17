@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AssignmentsService } from 'app/shared/assignments.service';
 import { Assignment } from '../assignment.model';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-add-assignement',
   templateUrl: './add-assignement.component.html',
@@ -12,30 +13,51 @@ export class AddAssignementComponent implements OnInit {
   // form
   nomDevoir: string;
   dateRendu: Date;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
 
   constructor(private assignmentsService: AssignmentsService,
-    private router: Router) { }
+    private router: Router, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.firstFormGroup = this._formBuilder.group({
+      nom: ['', Validators.required],
+      matiere: ['', Validators.required],
+      photo: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      auteur: ['', Validators.required],
+      dateDeRendu: ['', Validators.required],
+      note: ['', Validators.required,Validators.pattern("^[0-9]*$"),Validators.maxLength(2)],
+      remarques: ['', Validators.required]
+
+    });
   }
-  onSubmit() {
-    console.log("onSubmit")
+
+  submitStepperForm() {
+    console.log("it works")
+    console.log(this.firstFormGroup.value);
+    console.log(this.secondFormGroup.value);
     const newAssignment = new Assignment();
 
-    newAssignment.nom = this.nomDevoir;
-    newAssignment.dateDeRendu = this.dateRendu;
-    newAssignment.rendu = false;
     newAssignment.id = Math.ceil(Math.random() * 100000);
 
+    newAssignment.nom = this.firstFormGroup.value.nom;
+    newAssignment.matiere = this.firstFormGroup.value.matiere;
+    newAssignment.image = this.firstFormGroup.value.photo;
 
-    //this.nouvelAssignment.emit(newAssignment);
-    //this.assignments.push(newAssignment);
+    newAssignment.auteur = this.secondFormGroup.value.auteur;
+    newAssignment.dateDeRendu = this.secondFormGroup.value.dateDeRendu;
+    newAssignment.note = this.secondFormGroup.value.note;
+    newAssignment.remarques = this.secondFormGroup.value.remarques;
+
     this.assignmentsService.addAssignment(newAssignment)
       .subscribe(message => {
-        console.log(message);
-        //on veut re-afficher la page d'accueil avec la liste
-        this.router.navigate(["/home"]);
+        this._snackBar.open('Formulaire ajouté : ', newAssignment.nom, { duration: 2000 });
+
       })
+
+
   }
 
 }

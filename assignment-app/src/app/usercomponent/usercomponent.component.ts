@@ -58,6 +58,9 @@ export class UserComponent implements OnInit {
     if (this.isLogin()) {
       console.log("disconnect")
       this.authService.logOut();
+      this._snackBar.open('Utilisateur Déconnecté : ', this.usernameForm, { duration: 2000 });
+      this.router.navigate(["/home"]);
+
     }
   }
 

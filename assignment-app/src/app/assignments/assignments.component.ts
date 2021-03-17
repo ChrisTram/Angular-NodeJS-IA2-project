@@ -1,5 +1,7 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from 'app/shared/auth.service';
 import { filter, map, pairwise, tap, throttleTime } from 'rxjs/operators';
 import { AssignmentsService } from '../shared/assignments.service';
 import { Assignment } from './assignment.model';
@@ -24,7 +26,9 @@ export class AssignmentsComponent implements OnInit {
 
   constructor(
     private assignmentsService: AssignmentsService,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private authService: AuthService,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -99,7 +103,8 @@ export class AssignmentsComponent implements OnInit {
 
     // Version William qui renvoie un Observable une fois tous les inserts faits
     this.assignmentsService.peuplerBDJoin().subscribe((message) => {
-      console.log(message);
+      this._snackBar.open('La base de données a été peuplée', "Fermer", { duration: 3000 });
+
     });
   }
 
@@ -119,6 +124,18 @@ export class AssignmentsComponent implements OnInit {
     return "background-image: url( '" + assignment.image + "'); background-size: cover;";
 
 
+  }
+
+  isLogin(): boolean {
+    let result = false;
+    this.authService.isLogin().subscribe(val => { result = val; })
+    return result
+  }
+
+  checkLogin() {
+    if(!this.isLogin()) {
+      this._snackBar.open("Vous devez être connecté pour ajouter un assignment", "Fermer",{ duration: 3000 });
+    }
   }
 
 

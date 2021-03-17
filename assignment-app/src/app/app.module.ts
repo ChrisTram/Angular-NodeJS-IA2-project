@@ -10,7 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatListModule } from '@angular/material/list';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AssignmentsComponent } from './assignments/assignments.component';
@@ -21,11 +21,12 @@ import { ComponentDetailComponent } from './assignments/component-detail/compone
 import { AddAssignementComponent } from './assignments/add-assignement/add-assignement.component';
 import { RouterModule, Routes } from '@angular/router';
 import { EditAssignmentComponent } from './assignments/edit-assigment/edit-assignment.component';
-import { AuthGuard } from './shared/auth.guard';
+import { AuthAdminGuard, AuthGuard } from './shared/auth.guard';
 import { HttpClientModule } from '@angular/common/http';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { UserComponent } from './usercomponent/usercomponent.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatStepperModule} from '@angular/material/stepper';
 
 const routes: Routes = [
   {
@@ -38,7 +39,8 @@ const routes: Routes = [
   },
   {
     path: "add",
-    component: AddAssignementComponent
+    component: AddAssignementComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "assignment/:id",
@@ -47,7 +49,7 @@ const routes: Routes = [
   {
     path: "assignment/:id/edit",
     component: EditAssignmentComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthAdminGuard]
   },
 ]
 
@@ -65,11 +67,11 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule, MatIconModule, MatDividerModule,
-    MatInputModule, MatFormFieldModule,
+    MatInputModule, MatFormFieldModule, MatStepperModule,
     MatDatepickerModule, MatNativeDateModule, MatSnackBarModule,
     MatListModule, MatCardModule, MatCheckboxModule,
     MatSlideToggleModule,
-    FormsModule, HttpClientModule, ScrollingModule,
+    FormsModule, ReactiveFormsModule, HttpClientModule, ScrollingModule,
     RouterModule.forRoot(routes)
   ],
   providers: [],

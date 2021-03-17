@@ -81,6 +81,7 @@ export class AuthService {
 
   isLogin(): Observable<any> {
     const isLog = new Observable(observer => {
+      console.log(this.loggedIn)
       observer.next(this.loggedIn);
     });
     return isLog
