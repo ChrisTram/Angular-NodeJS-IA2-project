@@ -1,10 +1,11 @@
 
 <div class="content">
 <mat-slide-toggle color="primary"  [disabled]="this.isLogin() != true" [checked]="this.isLogin() == true" (change)="this.logOut()">
-    Connecté
-    <span *ngIf="this.isLogin() == true">, Bienvenue {{this.getUserStr()}}</span>
+    <span *ngIf="this.isLogin() == true; else deconnecte">Connecté, Bienvenue {{this.getUserStr()}}<br></span>
+    <ng-template #deconnecte>
+      <span>Déconnecté</span>
+    </ng-template>
 </mat-slide-toggle>
-
 
 <div *ngIf="this.isLogin() != true">
 <form class="form" #formLogin>

@@ -17,7 +17,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;     width: 
     margin:auto;
     margin-top: 30px;
     margin-bottom: 20px;
-    display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.mat-form-field {
+    display: block!important;
+    position: relative;
+    text-align: left;
 }
