@@ -16,7 +16,7 @@
         <mat-card-header>
           <div mat-card-avatar class="example-header-image" [style]="this.getPicture(assignment)"></div>
           <mat-card-title>{{assignment.nom}}</mat-card-title>
-          <mat-card-subtitle>Date de rendu : {{assignment.dateDeRendu |date}}</mat-card-subtitle>
+          <mat-card-subtitle>Date de rendu : {{assignment.dateDeRendu |date:'d-MM-YYYY HH:mm:ss'}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
           <p appRendu *ngIf="assignment.rendu; else nonSoumis">
@@ -27,20 +27,13 @@
           </ng-template>
           <p>Auteur : {{assignment.auteur}}</p>
           <p>Note : {{assignment.note}}</p>
-
+          <p>Remarques : {{assignment.remarques}}</p>
         </mat-card-content>
         <mat-card-actions>
           <button mat-button routerLink="/assignment/{{this.assignment.id}}">EDIT</button>
         </mat-card-actions>
       </mat-card>
 
-      <!--
-        <h3 mat-subheader>Date de rendu : {{assignment.dateDeRendu |date}}</h3>
-        <mat-list-item  class="example-item">
-          
-          <mat-divider></mat-divider>
-        </mat-list-item>
-      -->
     </nav>
   </mat-list>
 </cdk-virtual-scroll-viewport>

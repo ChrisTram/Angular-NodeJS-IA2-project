@@ -14,7 +14,7 @@ export class AssignmentsService {
   constructor(
     private loggingService: LoggingService,
     private http: HttpClient
-  ) {}
+  ) { }
 
   uri = 'http://localhost:8010/api/assignments';
   assignments_json: any = (data as any).default;
@@ -27,7 +27,7 @@ export class AssignmentsService {
       )
   }
 
-  getAssignmentsPagine(nextPage : Number = 1, limit:Number = 10): Observable<Object> {
+  getAssignmentsPagine(nextPage: Number = 1, limit: Number = 10): Observable<Object> {
     return this.http.get<Object>(this.uri + `?page=${nextPage}&limit=${limit}`)
   }
 
@@ -44,21 +44,21 @@ export class AssignmentsService {
 
     //return of(result);
     return this.http.get<Assignment>(this.uri + '/' + id)
-    .pipe(
-      map(a => {
-        a.nom += " MODIFIE DANS PIPE AVEC UN MAP";
-        return a;
-      }),
-      tap(a => {
-        console.log("Dans le tap");
-        console.log(a);
-      }),
-      catchError(this.handleError<Assignment>(`getAssignment(id=${id})`))
-    );
+      .pipe(
+        map(a => {
+          //a.nom += " MODIFIE DANS PIPE AVEC UN MAP";
+          return a;
+        }),
+        tap(a => {
+          console.log("Dans le tap");
+          console.log(a);
+        }),
+        catchError(this.handleError<Assignment>(`getAssignment(id=${id})`))
+      );
   }
 
-  private handleError<T>(operation:any, result?:T) {
-    return(error:any) : Observable<T> => {
+  private handleError<T>(operation: any, result?: T) {
+    return (error: any): Observable<T> => {
       console.log(error); // pour afficher dans la console
       console.log(operation + " a échoué " + error.message);
 
@@ -102,7 +102,7 @@ export class AssignmentsService {
   }
 
 
-  peuplerBD(){
+  peuplerBD() {
     for (let i = 0; i < this.assignments_json.length; i++) {
       const a = this.assignments_json[i]
 
@@ -122,7 +122,7 @@ export class AssignmentsService {
   }
 
   getNewId(): number {
-    return Math.ceil(Math.random()*100000);
+    return Math.ceil(Math.random() * 100000);
   }
 
   // autre version qui permet de récupérer un subscribe une fois que tous les inserts
@@ -142,7 +142,7 @@ export class AssignmentsService {
       new_assignment.matiere = a.matiere;
       new_assignment.remarques = a.remarques;
       new_assignment.image = a.image;
-      if(a.note) {
+      if (a.note) {
         new_assignment.rendu = true;
       } else {
         new_assignment.rendu = false;

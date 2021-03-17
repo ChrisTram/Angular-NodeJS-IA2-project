@@ -70,6 +70,7 @@ export class ComponentDetailComponent implements OnInit {
   isAdmin() {
     let result = false;
     this.authService.isAdmin().subscribe(val => { result = val; })
+    console.log(result)
     return result
   }
 }

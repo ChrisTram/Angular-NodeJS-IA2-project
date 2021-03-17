@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AssignmentsService } from 'app/shared/assignments.service';
-import {Assignment} from '../assignment.model';
+import { Assignment } from '../assignment.model';
 
 @Component({
   selector: 'app-add-assignement',
@@ -10,11 +10,11 @@ import {Assignment} from '../assignment.model';
 })
 export class AddAssignementComponent implements OnInit {
   // form
-  nomDevoir:string;
-  dateRendu:Date;
+  nomDevoir: string;
+  dateRendu: Date;
 
-  constructor(private assignmentsService:AssignmentsService,
-              private router:Router) { }
+  constructor(private assignmentsService: AssignmentsService,
+    private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -25,17 +25,17 @@ export class AddAssignementComponent implements OnInit {
     newAssignment.nom = this.nomDevoir;
     newAssignment.dateDeRendu = this.dateRendu;
     newAssignment.rendu = false;
-    newAssignment.id = Math.ceil(Math.random()*100000);
+    newAssignment.id = Math.ceil(Math.random() * 100000);
 
 
     //this.nouvelAssignment.emit(newAssignment);
     //this.assignments.push(newAssignment);
     this.assignmentsService.addAssignment(newAssignment)
-    .subscribe(message => {
-      console.log(message);
-      //on veut re-afficher la page d'accueil avec la liste
-      this.router.navigate(["/home"]);
-    })
+      .subscribe(message => {
+        console.log(message);
+        //on veut re-afficher la page d'accueil avec la liste
+        this.router.navigate(["/home"]);
+      })
   }
 
 }

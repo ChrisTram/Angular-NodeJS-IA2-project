@@ -11,19 +11,19 @@ import { Observable } from 'rxjs';
   styleUrls: ['./usercomponent.component.css']
 })
 export class UserComponent implements OnInit {
-  usernameForm:string;
-  password:string;
+  usernameForm: string;
+  password: string;
 
   @ViewChild("logToggle") ref: ElementRef;
 
 
-  constructor(private authService:AuthService,private router:Router ,private _snackBar: MatSnackBar) { }
+  constructor(private authService: AuthService, private router: Router, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
 
   logInOut() {
-    if(this.authService.loggedIn) {
+    if (this.authService.loggedIn) {
       this.authService.logOut();
       this.router.navigate(["/home"]);
     } else {
@@ -37,25 +37,25 @@ export class UserComponent implements OnInit {
 
     //this.nouvelAssignment.emit(newAssignment);
     //this.assignments.push(newAssignment);
-    
+
     this.authService.getUser(this.usernameForm)
-    .subscribe(message => {
-      this._snackBar.open('Utilisateur connecté : ', this.usernameForm, {duration: 2000});
-    })
+      .subscribe(message => {
+        this._snackBar.open('Utilisateur connecté : ', this.usernameForm, { duration: 2000 });
+      })
   }
 
-  getUserStr():String {
+  getUserStr(): String {
     return this.authService.getUserStr();
   }
 
-  isLogin():boolean{
+  isLogin(): boolean {
     let result = false;
-    this.authService.isLogin().subscribe(val => {result = val;})
+    this.authService.isLogin().subscribe(val => { result = val; })
     return result
   }
 
   logOut() {
-    if(this.isLogin()) {
+    if (this.isLogin()) {
       console.log("disconnect")
       this.authService.logOut();
     }

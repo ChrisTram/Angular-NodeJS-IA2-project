@@ -29,6 +29,7 @@ export class AuthService {
 
   logOut() {
     this.loggedIn = false;
+    this.actualUser = null;
   }
 
   getUser(username: string): Observable<User> {
@@ -64,11 +65,17 @@ export class AuthService {
 
 
   isAdmin(): Observable<any> {
+
     const isUserAdmin = new Observable(observer => {
-      observer.next(this.actualUser.isAdmin);
+      if (this.actualUser) {
+        observer.next(this.actualUser.isAdmin);
+      } else {
+        observer.next(false);
+      }
     });
 
     return isUserAdmin;
+
   }
 
 

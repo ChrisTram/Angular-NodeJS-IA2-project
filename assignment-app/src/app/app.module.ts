@@ -19,34 +19,34 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ComponentDetailComponent } from './assignments/component-detail/component-detail.component';
 import { AddAssignementComponent } from './assignments/add-assignement/add-assignement.component';
-import {RouterModule, Routes} from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { EditAssignmentComponent } from './assignments/edit-assigment/edit-assignment.component';
 import { AuthGuard } from './shared/auth.guard';
 import { HttpClientModule } from '@angular/common/http';
-import {ScrollingModule} from '@angular/cdk/scrolling';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { UserComponent } from './usercomponent/usercomponent.component';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-const routes:Routes = [
+const routes: Routes = [
   {
-    path:"",
-    component:AssignmentsComponent
+    path: "",
+    component: AssignmentsComponent
   },
   {
-    path:"home",
-    component:AssignmentsComponent
+    path: "home",
+    component: AssignmentsComponent
   },
   {
-    path:"add",
-    component:AddAssignementComponent
+    path: "add",
+    component: AddAssignementComponent
   },
   {
-    path:"assignment/:id",
-    component:ComponentDetailComponent
+    path: "assignment/:id",
+    component: ComponentDetailComponent
   },
   {
-    path:"assignment/:id/edit",
-    component:EditAssignmentComponent,
+    path: "assignment/:id/edit",
+    component: EditAssignmentComponent,
     canActivate: [AuthGuard]
   },
 ]
