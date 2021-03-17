@@ -35,12 +35,13 @@ export class UserComponent implements OnInit {
     console.log("onSubmit")
 
 
-    //this.nouvelAssignment.emit(newAssignment);
-    //this.assignments.push(newAssignment);
-
     this.authService.getUser(this.usernameForm)
-      .subscribe(message => {
-        this._snackBar.open('Utilisateur connecté : ', this.usernameForm, { duration: 2000 });
+      .subscribe(rep => {
+        if(rep != null) {
+          this._snackBar.open('Utilisateur connecté : ', rep.username, { duration: 2000 });
+        } else {
+          this._snackBar.open('Utilisateur non trouvé : ', this.usernameForm, { duration: 2000 });
+        }
       })
   }
 

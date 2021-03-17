@@ -36,13 +36,17 @@ export class AuthService {
     return this.http.get<User>(this.uri + '/' + username)
       .pipe(
         map(a => {
-          this.logIn();
-          this.actualUser = a;
-          return a;
-        }),
-        tap(a => {
-          console.log("Dans le tap");
-          console.log(a);
+
+          console.log(a)
+          if (a != null) {
+            this.logIn();
+            this.actualUser = a;
+            return a;
+          } else {
+            throw new Error('User not found');
+            return null;
+          }
+
         }),
         catchError(this.handleError<User>(`getUser(username=${username})`))
       );
@@ -81,7 +85,6 @@ export class AuthService {
 
   isLogin(): Observable<any> {
     const isLog = new Observable(observer => {
-      console.log(this.loggedIn)
       observer.next(this.loggedIn);
     });
     return isLog

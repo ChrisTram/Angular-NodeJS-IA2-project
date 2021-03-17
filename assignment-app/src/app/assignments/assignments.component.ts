@@ -133,12 +133,12 @@ export class AssignmentsComponent implements OnInit {
   }
 
   checkLogin() {
-    if(!this.isLogin()) {
-      this._snackBar.open("Vous devez être connecté pour ajouter un assignment", "Fermer",{ duration: 3000 });
+    if (!this.isLogin()) {
+      this._snackBar.open("Vous devez être connecté pour ajouter un assignment", "Fermer", { duration: 3000 });
     }
   }
 
-  getImage(matiere:string):string {
+  getImage(matiere: string): string {
     const matieres = [
       'Histoire',
       'Computer Vision',
@@ -154,13 +154,11 @@ export class AssignmentsComponent implements OnInit {
       'SI',
       'Compta'
     ]
-    if(matieres.indexOf(matiere) >= 0) {
+    if (matieres.indexOf(matiere) >= 0) {
       return "assets/" + matiere + ".jpg";
     } else {
       return "assets/default.jpg";
-
     }
-
   }
 
 
