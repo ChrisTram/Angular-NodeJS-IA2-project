@@ -7,12 +7,12 @@
     </mat-checkbox>
 
         <button mat-flat-button color="primary"
-                [disabled]="!loggedIn()"
+                [disabled]="!isAdmin()"
                 (click)="onClickEdit()">
           EDIT
         </button>
 
-    <button mat-flat-button color="warn" (click)="onDelete()" [disabled]="!loggedIn()"> 
+    <button mat-flat-button color="warn" (click)="onDelete()" [disabled]="!isAdmin()"> 
       DELETE
     </button>
   </mat-card>

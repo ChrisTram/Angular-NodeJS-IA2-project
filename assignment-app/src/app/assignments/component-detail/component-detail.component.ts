@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'app/shared/auth.service';
 import { AssignmentsService } from 'app/shared/assignments.service';
-import {Assignment} from '../assignment.model';
+import { Assignment } from '../assignment.model';
 
 @Component({
   selector: 'app-component-detail',
@@ -10,12 +10,12 @@ import {Assignment} from '../assignment.model';
   styleUrls: ['./component-detail.component.css']
 })
 export class ComponentDetailComponent implements OnInit {
-  assignementTransmis:Assignment;
+  assignementTransmis: Assignment;
 
-  constructor(private assignmentsService:AssignmentsService,
-              private route:ActivatedRoute,
-              private router:Router,
-              private authService:AuthService) { }
+  constructor(private assignmentsService: AssignmentsService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getAssignment();
@@ -35,11 +35,11 @@ export class ComponentDetailComponent implements OnInit {
 
   onDelete() {
     this.assignmentsService.deleteAssignment(this.assignementTransmis)
-    .subscribe(message => {
-      console.log(message);
-      this.assignementTransmis = null;
-      this.router.navigate(["/home"]);
-    });
+      .subscribe(message => {
+        console.log(message);
+        this.assignementTransmis = null;
+        this.router.navigate(["/home"]);
+      });
   }
 
   onAssignementRendu() {
@@ -53,18 +53,23 @@ export class ComponentDetailComponent implements OnInit {
 
   onClickEdit() {
     this.router.navigate(
-                    ['assignment', this.assignementTransmis.id, 'edit'],
-                    {
-                      queryParams:{
-                        nom:this.assignementTransmis.nom
-                      },
-                        fragment:'edition'
-                      });
+      ['assignment', this.assignementTransmis.id, 'edit'],
+      {
+        queryParams: {
+          nom: this.assignementTransmis.nom
+        },
+        fragment: 'edition'
+      });
   }
 
   loggedIn() {
-      let result = false;
-      this.authService.isLogin().subscribe(val => {result = val;})
-      return result
+    let result = false;
+    this.authService.isLogin().subscribe(val => { result = val; })
+    return result
+  }
+  isAdmin() {
+    let result = false;
+    this.authService.isAdmin().subscribe(val => { result = val; })
+    return result
   }
 }

@@ -16,14 +16,14 @@ export class AuthService {
   constructor(
     private loggingService: LoggingService,
     private http: HttpClient
-  ) {this.loggedIn = false}
+  ) { this.loggedIn = false }
 
   uri = 'http://localhost:8010/api/users';
   assignments_json: any = (data as any).default;
-  actualUser:User;
-  loggedIn:boolean = false;
+  actualUser: User;
+  loggedIn: boolean = false;
 
-  logIn() {    
+  logIn() {
     this.loggedIn = true;
   }
 
@@ -33,22 +33,22 @@ export class AuthService {
 
   getUser(username: string): Observable<User> {
     return this.http.get<User>(this.uri + '/' + username)
-    .pipe(
-      map(a => {
-        this.logIn();
-        this.actualUser = a;
-        return a;
-      }),
-      tap(a => {
-        console.log("Dans le tap");
-        console.log(a);
-      }),
-      catchError(this.handleError<User>(`getUser(username=${username})`))
-    );
+      .pipe(
+        map(a => {
+          this.logIn();
+          this.actualUser = a;
+          return a;
+        }),
+        tap(a => {
+          console.log("Dans le tap");
+          console.log(a);
+        }),
+        catchError(this.handleError<User>(`getUser(username=${username})`))
+      );
   }
 
-  private handleError<T>(operation:any, result?:T) {
-    return(error:any) : Observable<T> => {
+  private handleError<T>(operation: any, result?: T) {
+    return (error: any): Observable<T> => {
       console.log(error); // pour afficher dans la console
       console.log(operation + " a échoué " + error.message);
 
@@ -56,26 +56,28 @@ export class AuthService {
     }
   }
 
-  getUserStr():String {
-    if(this.loggedIn) {
+  getUserStr(): String {
+    if (this.loggedIn) {
       return this.actualUser.username
     }
   }
-  
 
-  isAdmin():Promise<any> {
-    const isUserAdmin = new Promise((resolve, reject) => {
-      resolve(this.actualUser.isAdmin);
+
+  isAdmin(): Observable<any> {
+    const isUserAdmin = new Observable(observer => {
+      observer.next(this.actualUser.isAdmin);
     });
 
     return isUserAdmin;
-    }
+  }
 
 
-  isLogin():Observable<any> {
+  isLogin(): Observable<any> {
     const isLog = new Observable(observer => {
       observer.next(this.loggedIn);
-  });
-  return isLog
+    });
+    return isLog
   }
+
+
 }

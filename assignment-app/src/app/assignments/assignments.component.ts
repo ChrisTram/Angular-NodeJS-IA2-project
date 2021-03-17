@@ -25,7 +25,7 @@ export class AssignmentsComponent implements OnInit {
   constructor(
     private assignmentsService: AssignmentsService,
     private ngZone: NgZone
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     /*
@@ -34,7 +34,7 @@ export class AssignmentsComponent implements OnInit {
       this.assignments = assignments;
     });
 */
-  this.getAssignments();
+    this.getAssignments();
   }
 
   // avec pagination...
@@ -101,6 +101,24 @@ export class AssignmentsComponent implements OnInit {
     this.assignmentsService.peuplerBDJoin().subscribe((message) => {
       console.log(message);
     });
+  }
+
+  getPicture(assignment: Assignment): string {
+    var genre = ""
+
+    if (Math.random() < 0.5) {
+      genre = "men"
+    } else {
+      genre = "women"
+    }
+
+
+    if (assignment.image === "null") {
+      assignment.image = "https://randomuser.me/api/portraits/" + genre + "/" + assignment.note + ".jpg"
+    }
+    return "background-image: url( '" + assignment.image + "'); background-size: cover;";
+
+
   }
 
 

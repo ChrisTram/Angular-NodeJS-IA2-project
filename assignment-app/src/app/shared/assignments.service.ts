@@ -136,6 +136,7 @@ export class AssignmentsService {
       new_assignment.id = this.getNewId();
 
       new_assignment.nom = a.nom;
+      new_assignment.note = a.note;
       new_assignment.dateDeRendu = a.dateDeRendu;
       new_assignment.auteur = a.auteur;
       new_assignment.matiere = a.matiere;
