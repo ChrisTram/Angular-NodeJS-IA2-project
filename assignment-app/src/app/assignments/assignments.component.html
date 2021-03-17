@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container content">
   <a routerLink="/add">
     <button class="ajouterBtn" mat-flat-button color="accent">
       Ajouter Devoir
@@ -26,8 +26,8 @@
             <p>Le devoir {{assignment.nom}} n'a pas été rendu.</p>
           </ng-template>
           <p>Auteur : {{assignment.auteur}}</p>
-          <p>Note : {{assignment.note}}</p>
-          <p>Remarques : {{assignment.remarques}}</p>
+          <p *ngIf="assignment.rendu;">Note : {{assignment.note}}</p>
+          <p *ngIf="assignment.rendu;">Remarques : {{assignment.remarques}}</p>
         </mat-card-content>
         <mat-card-actions>
           <button mat-button routerLink="/assignment/{{this.assignment.id}}">EDIT</button>
