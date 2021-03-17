@@ -63,6 +63,8 @@ export class ComponentDetailComponent implements OnInit {
   }
 
   loggedIn() {
-    return this.authService.loggedIn;
+      let result = false;
+      this.authService.isLogin().subscribe(val => {result = val;})
+      return result
   }
 }

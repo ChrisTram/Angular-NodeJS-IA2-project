@@ -103,12 +103,5 @@ export class AssignmentsComponent implements OnInit {
     });
   }
 
-  addMoreAssignments() {
-    this.assignmentsService
-      .getMoreAssignments(1, 20)
-      .subscribe((newAssignments) => {
-        console.log('20 nouveaux assignments ajoutés...');
-        this.assignments = [...this.assignments, ...newAssignments];
-      });
-  }
+
 }

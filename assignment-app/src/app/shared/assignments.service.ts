@@ -10,26 +10,6 @@ import * as data from 'app/shared/assignments.json';
   providedIn: 'root',
 })
 export class AssignmentsService {
-  assignments: Assignment[] = [
-    {
-      id: 1,
-      nom: 'TP1 Web Components à rendre',
-      dateDeRendu: new Date('2020-11-17'),
-      rendu: true,
-    },
-    {
-      id: 2,
-      nom: 'TP2 Angular à rendre',
-      dateDeRendu: new Date('2020-12-13'),
-      rendu: false,
-    },
-    {
-      id: 3,
-      nom: 'Mini Projet Angular à rendre',
-      dateDeRendu: new Date('2021-01-07'),
-      rendu: false,
-    },
-  ];
 
   constructor(
     private loggingService: LoggingService,
@@ -57,21 +37,6 @@ export class AssignmentsService {
     return this.http.get<Assignment[]>(this.uri).toPromise();
   }
 
-  getMoreAssignments(page, size):Observable<Assignment[]> {
-    let newAssignments:Assignment[] = [];
-
-    for (let i = 0; i < size; i++) {
-      const id = this.getNewId();
-
-      newAssignments.push({
-        id:id,
-        nom: 'Nouvel Assignment # ' + id,
-        dateDeRendu: new Date(),
-        rendu: false
-      });
-    }
-    return of(newAssignments);
-  }
 
 
   getAssignment(id: number): Observable<Assignment> {
@@ -171,8 +136,16 @@ export class AssignmentsService {
       new_assignment.id = this.getNewId();
 
       new_assignment.nom = a.nom;
-      new_assignment.dateDeRendu = new Date(a.dateDeRendu);
-      new_assignment.rendu = false;
+      new_assignment.dateDeRendu = a.dateDeRendu;
+      new_assignment.auteur = a.auteur;
+      new_assignment.matiere = a.matiere;
+      new_assignment.remarques = a.remarques;
+      new_assignment.image = a.image;
+      if(a.note) {
+        new_assignment.rendu = true;
+      } else {
+        new_assignment.rendu = false;
+      }
       calls.push(this.addAssignment(new_assignment));
     });
     return forkJoin(calls); // renvoie un seul Observable pour dire que c'est fini

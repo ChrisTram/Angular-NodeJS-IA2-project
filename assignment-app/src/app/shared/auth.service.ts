@@ -35,7 +35,7 @@ export class AuthService {
     return this.http.get<User>(this.uri + '/' + username)
     .pipe(
       map(a => {
-        this.logIn()
+        this.logIn();
         this.actualUser = a;
         return a;
       }),

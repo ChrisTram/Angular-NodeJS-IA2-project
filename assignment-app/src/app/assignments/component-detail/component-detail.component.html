@@ -12,7 +12,7 @@
           EDIT
         </button>
 
-    <button mat-flat-button color="warn" (click)="onDelete()">
+    <button mat-flat-button color="warn" (click)="onDelete()" [disabled]="!loggedIn()"> 
       DELETE
     </button>
   </mat-card>
