@@ -12,7 +12,7 @@
 <mat-tab-group dynamicHeight id="tabs">
 
   <mat-tab label="A rendre">
-    <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scroller>
+    <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #unfinishedScroller>
       <mat-list *cdkVirtualFor="let assignment of unfinishedAssignments">
         <nav>
           <mat-card class="example-card" style="margin: 10px" (click)="assignmentClique(assignment)">
@@ -45,7 +45,7 @@
     </cdk-virtual-scroll-viewport>
   </mat-tab>
   <mat-tab label="Rendu">
-    <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scroller>
+    <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #finishedScroller>
       <mat-list *cdkVirtualFor="let assignment of finishedAssignments">
         <nav>
           <mat-card class="example-card" style="margin: 10px" (click)="assignmentClique(assignment)">

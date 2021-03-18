@@ -75,11 +75,12 @@ export class AddAssignementComponent implements OnInit {
   
       newAssignment.auteur = this.secondFormGroup.value.auteur;
       newAssignment.dateDeRendu = this.secondFormGroup.value.dateDeRendu;
-      newAssignment.note = this.secondFormGroup.value.note;
       newAssignment.remarques = this.secondFormGroup.value.remarques;
   
-      if(newAssignment.note != null) {
+      console.log(this.secondFormGroup.value.note)
+      if(this.secondFormGroup.value.note != "") {
         newAssignment.rendu = true
+        newAssignment.note = Number(this.secondFormGroup.value.note);
       } else {
         newAssignment.rendu = false
       }

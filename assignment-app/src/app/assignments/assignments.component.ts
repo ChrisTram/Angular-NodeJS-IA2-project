@@ -19,12 +19,14 @@ export class AssignmentsComponent implements OnInit {
   assignmentSelectionne: Assignment;
 
   page: Number;
-  nextPage: Number = 1;
+  finishedNextPage: Number = 1;
+  unfinishedNextPage: Number = 1;
+
   limit: Number = 10;
   countAssignments: Number;
 
-  @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
-
+  @ViewChild('finishedScroller') finishedScroller: CdkVirtualScrollViewport;
+  @ViewChild('unfinishedScroller') unfinishedScroller: CdkVirtualScrollViewport;
   constructor(
     private assignmentsService: AssignmentsService,
     private ngZone: NgZone,
@@ -45,33 +47,45 @@ export class AssignmentsComponent implements OnInit {
 
   // avec pagination...
   getAssignments() {
-    if (!this.nextPage) return;
+    this.getFinishedAssignmentsPagine();
+    this.getUnfinishedAssignmentsPagine();
+
+
+
+  }
+  getFinishedAssignmentsPagine() {
+    if (!this.finishedNextPage) return;
     this.assignmentsService
-      .getFinishedAssignmentsPagine(this.nextPage, this.limit)
+      .getFinishedAssignmentsPagine(this.finishedNextPage, this.limit)
       .subscribe((data) => {
         this.page = data['page'];
-        this.nextPage = data['nextPage'];
+        this.finishedNextPage = data['nextPage'];
         this.countAssignments = data['totalDocs'];
         this.finishedAssignments = this.finishedAssignments.concat(data['docs']);
       });
+  }
+
+  getUnfinishedAssignmentsPagine() {
+    if (!this.unfinishedNextPage) return;
     this.assignmentsService
-      .getUnfinishedAssignmentsPagine(this.nextPage, this.limit)
+      .getUnfinishedAssignmentsPagine(this.unfinishedNextPage, this.limit)
       .subscribe((data) => {
         this.page = data['page'];
-        this.nextPage = data['nextPage'];
+        this.unfinishedNextPage = data['nextPage'];
         this.countAssignments = data['totalDocs'];
         this.unfinishedAssignments = this.unfinishedAssignments.concat(data['docs']);
       });
   }
 
+
   ngAfterViewInit() {
     console.log('After view init');
-    this.scroller
+    this.finishedScroller
       .elementScrolled()
       .pipe(
         // on transforme les evenements en distances par rapport au bas du scroll
         map((e) => {
-          return this.scroller.measureScrollOffset('bottom');
+          return this.finishedScroller.measureScrollOffset('bottom');
         }),
         tap((val) => {
           console.log(val);
@@ -88,7 +102,33 @@ export class AssignmentsComponent implements OnInit {
         );
         this.ngZone.run(() => {
           //this.addMoreAssignments();
-          this.getAssignments(); // déjà prêt car nextPage re-initialisé à chaque requête
+          this.getFinishedAssignmentsPagine(); // déjà prêt car nextPage re-initialisé à chaque requête
+        });
+      });
+
+      this.unfinishedScroller
+      .elementScrolled()
+      .pipe(
+        // on transforme les evenements en distances par rapport au bas du scroll
+        map((e) => {
+          return this.unfinishedScroller.measureScrollOffset('bottom');
+        }),
+        tap((val) => {
+          console.log(val);
+        }),
+        pairwise(),
+        filter(([y1, y2]) => {
+          return y2 < y1 && y2 < 140;
+        }),
+        throttleTime(200) // on n'enverra un subscribe que toutes les 200ms (on ignorera les evenements entre...)
+      )
+      .subscribe((_) => {
+        console.log(
+          "...Dans subscribe du scroller, je charge plus d'assignments"
+        );
+        this.ngZone.run(() => {
+          //this.addMoreAssignments();
+          this.getUnfinishedAssignmentsPagine(); // déjà prêt car nextPage re-initialisé à chaque requête
         });
       });
   }
