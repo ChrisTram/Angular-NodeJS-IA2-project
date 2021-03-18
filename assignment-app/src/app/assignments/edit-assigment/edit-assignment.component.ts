@@ -84,6 +84,13 @@ export class EditAssignmentComponent implements OnInit {
     this.assignment.note = this.formGroup.value.note;
     this.assignment.remarques = this.formGroup.value.remarques;
 
+    console.log(this.formGroup.value.note)
+    if(this.formGroup.value.note != "") {
+      this.assignment.rendu = true
+      this.assignment.note = Number(this.formGroup.value.note);
+    } else {
+      this.assignment.rendu = false
+    }
     this.assignmentsService
       .updateAssignment(this.assignment)
       .subscribe((message) => {
