@@ -44,4 +44,4 @@ repo/
 
 ## Copyright & license
 
-Code and documentation copyright 2019. Code released under the [MIT License](https://reponame/blob/master/LICENSE).
+Code and documentation copyright 2021. Code released under the [MIT License](https://reponame/blob/master/LICENSE).
