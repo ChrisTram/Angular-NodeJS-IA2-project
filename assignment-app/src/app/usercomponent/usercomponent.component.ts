@@ -37,7 +37,7 @@ export class UserComponent implements OnInit {
 
     this.authService.getUser(this.usernameForm)
       .subscribe(rep => {
-        if(rep != null) {
+        if (rep != null) {
           this._snackBar.open('Utilisateur connecté : ', rep.username, { duration: 2000 });
         } else {
           this._snackBar.open('Utilisateur non trouvé : ', this.usernameForm, { duration: 2000 });

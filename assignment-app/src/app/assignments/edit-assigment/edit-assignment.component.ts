@@ -18,22 +18,22 @@ interface Matiere {
 })
 export class EditAssignmentComponent implements OnInit {
   assignment: Assignment;
-  formGroup:FormGroup;
+  formGroup: FormGroup;
 
   matieres: Matiere[] = [
-    {value: 'Histoire', viewValue: 'Histoire'},
-    {value: 'Computer Vision', viewValue: 'Computer Vision'},
-    {value: 'BD', viewValue: 'BD'},
-    {value: 'WEB', viewValue: 'WEB'},
-    {value: 'JAVA', viewValue: 'JAVA'},
-    {value: 'Angular', viewValue: 'Angular'},
-    {value: 'Anglais', viewValue: 'Anglais'},
-    {value: 'Machine Learning', viewValue: 'Machine Learning'},
-    {value: 'Deep Learning', viewValue: 'Deep Learning'},
-    {value: 'SVT', viewValue: 'SVT'},
-    {value: 'Maths', viewValue: 'Maths'},
-    {value: 'SI', viewValue: 'SI'},
-    {value: 'Compta', viewValue: 'Compta'},
+    { value: 'Histoire', viewValue: 'Histoire' },
+    { value: 'Computer Vision', viewValue: 'Computer Vision' },
+    { value: 'BD', viewValue: 'BD' },
+    { value: 'WEB', viewValue: 'WEB' },
+    { value: 'JAVA', viewValue: 'JAVA' },
+    { value: 'Angular', viewValue: 'Angular' },
+    { value: 'Anglais', viewValue: 'Anglais' },
+    { value: 'Machine Learning', viewValue: 'Machine Learning' },
+    { value: 'Deep Learning', viewValue: 'Deep Learning' },
+    { value: 'SVT', viewValue: 'SVT' },
+    { value: 'Maths', viewValue: 'Maths' },
+    { value: 'SI', viewValue: 'SI' },
+    { value: 'Compta', viewValue: 'Compta' },
 
   ];
 
@@ -41,9 +41,9 @@ export class EditAssignmentComponent implements OnInit {
     private assignmentsService: AssignmentsService,
     private route: ActivatedRoute,
     private router: Router,
-    private _formBuilder: FormBuilder, 
+    private _formBuilder: FormBuilder,
     private _snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getAssignment();
@@ -61,14 +61,14 @@ export class EditAssignmentComponent implements OnInit {
       console.log('Query Params : ');
       console.log(this.route.snapshot.queryParams);
       console.log('fragment : ' + this.route.snapshot.fragment);
-  
+
       this.formGroup = this._formBuilder.group({
         nom: [this.assignment.nom, Validators.required],
         matiere: [this.assignment.matiere, Validators.required],
         photo: [this.assignment.image],
         auteur: [this.assignment.auteur],
         dateDeRendu: [this.assignment.dateDeRendu],
-        note: [this.assignment.note,[Validators.pattern("^[0-9]*$"),Validators.maxLength(2)]],
+        note: [this.assignment.note, [Validators.pattern("^[0-9]*$"), Validators.maxLength(2)]],
         remarques: [this.assignment.remarques]
       });
     });
@@ -85,12 +85,13 @@ export class EditAssignmentComponent implements OnInit {
     this.assignment.remarques = this.formGroup.value.remarques;
 
     console.log(this.formGroup.value.note)
-    if(this.formGroup.value.note != "") {
+    if (this.formGroup.value.note != "") {
       this.assignment.rendu = true
       this.assignment.note = Number(this.formGroup.value.note);
     } else {
       this.assignment.rendu = false
     }
+
     this.assignmentsService
       .updateAssignment(this.assignment)
       .subscribe((message) => {

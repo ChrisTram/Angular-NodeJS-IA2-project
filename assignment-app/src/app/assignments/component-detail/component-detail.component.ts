@@ -46,7 +46,7 @@ export class ComponentDetailComponent implements OnInit {
   }
 
   onAssignementRendu() {
-    if(this.loggedIn()) {
+    if (this.loggedIn()) {
       this.assignementTransmis.rendu = true;
       this.assignmentsService.updateAssignment(this.assignementTransmis)
         .subscribe(message => {
@@ -86,15 +86,15 @@ export class ComponentDetailComponent implements OnInit {
     if (assignment.image === "null") {
       var genre = ""
       var idStr = assignment.id.toString()
-  
-      if ( Number(idStr[0]) < 5) {
+
+      if (Number(idStr[0]) < 5) {
         genre = "men"
       } else {
         genre = "women"
       }
       let nb;
 
-      if(idStr[1] != "0" ){
+      if (idStr[1] != "0") {
         nb = idStr[1] + idStr[2]
       } else {
         nb = idStr[2] + idStr[1]
