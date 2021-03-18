@@ -35,4 +35,3 @@ drag and drop entre la liste des Assignments non rendus et rendus, qui déclench
 Ajout de messages de notification (SnackBar Material)
 Collection d'élèves et de profs pour faciliter l'association devoir/élève et matières/profs
 Etc.
- 
