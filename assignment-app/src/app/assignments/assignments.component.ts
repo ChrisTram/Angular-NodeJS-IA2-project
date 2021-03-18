@@ -14,7 +14,8 @@ import { Assignment } from './assignment.model';
 export class AssignmentsComponent implements OnInit {
   titre = 'Mon application sur les Assignments 2 !';
   formVisible = false;
-  assignments: Assignment[] = [];
+  finishedAssignments: Assignment[] = [];
+  unfinishedAssignments: Assignment[] = [];
   assignmentSelectionne: Assignment;
 
   page: Number;
@@ -39,18 +40,27 @@ export class AssignmentsComponent implements OnInit {
     });
 */
     this.getAssignments();
+   
   }
 
   // avec pagination...
   getAssignments() {
     if (!this.nextPage) return;
     this.assignmentsService
-      .getAssignmentsPagine(this.nextPage, this.limit)
+      .getFinishedAssignmentsPagine(this.nextPage, this.limit)
       .subscribe((data) => {
         this.page = data['page'];
         this.nextPage = data['nextPage'];
         this.countAssignments = data['totalDocs'];
-        this.assignments = this.assignments.concat(data['docs']);
+        this.finishedAssignments = this.finishedAssignments.concat(data['docs']);
+      });
+    this.assignmentsService
+      .getUnfinishedAssignmentsPagine(this.nextPage, this.limit)
+      .subscribe((data) => {
+        this.page = data['page'];
+        this.nextPage = data['nextPage'];
+        this.countAssignments = data['totalDocs'];
+        this.unfinishedAssignments = this.unfinishedAssignments.concat(data['docs']);
       });
   }
 
@@ -127,7 +137,6 @@ export class AssignmentsComponent implements OnInit {
       }
       
       assignment.image = "https://randomuser.me/api/portraits/" + genre + "/" + nb + ".jpg"
-      console.log(assignment.image)
     }
     return "background-image: url( '" + assignment.image + "'); background-size: cover;";
   }

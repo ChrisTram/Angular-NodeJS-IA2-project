@@ -27,8 +27,12 @@ export class AssignmentsService {
       )
   }
 
-  getAssignmentsPagine(nextPage: Number = 1, limit: Number = 10): Observable<Object> {
-    return this.http.get<Object>(this.uri + `?page=${nextPage}&limit=${limit}`)
+  getFinishedAssignmentsPagine(nextPage: Number = 1, limit: Number = 10): Observable<Object> {
+    return this.http.get<Object>(this.uri + "/finished" + `?page=${nextPage}&limit=${limit}`)
+  }
+
+  getUnfinishedAssignmentsPagine(nextPage: Number = 1, limit: Number = 10): Observable<Object> {
+    return this.http.get<Object>(this.uri + "/unfinished" + `?page=${nextPage}&limit=${limit}`)
   }
 
   // Version avec promesse

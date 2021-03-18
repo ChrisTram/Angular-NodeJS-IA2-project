@@ -14,7 +14,7 @@ const uri = 'mongodb+srv://ct:totopassword@cluster0.s1bwz.mongodb.net/assignment
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useFindAndModify:false
+  useFindAndModify: false
 };
 
 mongoose.connect(uri, options)
@@ -22,7 +22,7 @@ mongoose.connect(uri, options)
     console.log("Connecté à la base MongoDB assignments dans le cloud !");
     console.log("at URI = " + uri);
     console.log("vérifiez with http://localhost:8010/api/assignments que cela fonctionne")
-    },
+  },
     err => {
       console.log('Erreur de connexion: ', err);
     });
@@ -36,7 +36,7 @@ app.use(function (req, res, next) {
 });
 
 // Pour les formulaires
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 let port = process.env.PORT || 8010;
@@ -44,8 +44,11 @@ let port = process.env.PORT || 8010;
 // les routes
 const prefix = '/api';
 
-app.route(prefix + '/assignments')
-  .get(assignment.getAssignments);
+app.route(prefix + '/assignments/finished')
+  .get(assignment.getFinishedAssignments);
+
+app.route(prefix + '/assignments/unfinished')
+  .get(assignment.getUnfinishedAssignments);
 
 app.route(prefix + '/assignments/:id')
   .get(assignment.getAssignment)
@@ -55,7 +58,7 @@ app.route(prefix + '/assignments')
   .post(assignment.postAssignment)
   .put(assignment.updateAssignment);
 
-  app.route(prefix + '/users')
+app.route(prefix + '/users')
   .get(user.getUsers);
 
 app.route(prefix + '/users/:username')

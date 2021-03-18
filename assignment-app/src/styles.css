@@ -19,7 +19,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;     width: 
     margin-bottom: 20px;
     justify-content: center;
     align-items: center;
+
 }
+
+#tabs { 
+    width: 50%;
+    height: 100%;
+    margin:auto;
+    justify-content: center;
+}
+
+.mat-tab-body-wrapper{
+    flex-grow: 1;
+  }
+
 
 .mat-form-field {
     display: block!important;

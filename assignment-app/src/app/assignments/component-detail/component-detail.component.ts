@@ -99,9 +99,8 @@ export class ComponentDetailComponent implements OnInit {
       } else {
         nb = idStr[2] + idStr[1]
       }
-      
+
       assignment.image = "https://randomuser.me/api/portraits/" + genre + "/" + nb + ".jpg"
-      console.log(assignment.image)
     }
     return "background-image: url( '" + assignment.image + "'); background-size: cover;";
   }

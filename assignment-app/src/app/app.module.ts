@@ -28,6 +28,7 @@ import { UserComponent } from './usercomponent/usercomponent.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatSelectModule} from '@angular/material/select';
+import {MatTabsModule} from '@angular/material/tabs';
 
 const routes: Routes = [
   {
@@ -67,7 +68,7 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatButtonModule, MatIconModule, MatDividerModule,
+    MatButtonModule, MatIconModule, MatDividerModule, MatTabsModule,
     MatInputModule, MatFormFieldModule, MatStepperModule, MatSelectModule,
     MatDatepickerModule, MatNativeDateModule, MatSnackBarModule,
     MatListModule, MatCardModule, MatCheckboxModule,

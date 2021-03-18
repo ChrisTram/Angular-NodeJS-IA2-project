@@ -1,44 +1,83 @@
-<div class="container content">
+<div class="container content" style="flex-direction:row;">
   <a routerLink="/add">
     <button class="ajouterBtn" mat-flat-button color="accent" (click)="checkLogin()">
       Ajouter Devoir
     </button>
   </a>
-  <button class="ajouterBtn" mat-flat-button color="accent" (click)="peuplerBD()">
+  <button class="ajouterBtn" mat-flat-button color="accent" (click)="peuplerBD()" style="margin-left: 10px;">
     Peupler BD
   </button>
 </div>
 
-<cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scroller>
-  <mat-list *cdkVirtualFor="let assignment of assignments">
-    <nav>
-      <mat-card class="example-card" style="margin: 10px" (click)="assignmentClique(assignment)">
-        <mat-card-header>
-          <div mat-card-avatar class="example-header-image" [style]="this.getPortrait(assignment)"></div>
-          <mat-card-title>{{assignment.nom}}</mat-card-title>
-          <mat-card-subtitle>Date de rendu : {{assignment.dateDeRendu |date:'d-MM-YYYY HH:mm:ss'}}</mat-card-subtitle>
-        </mat-card-header>
-        <img mat-card-image [src]=getImage(assignment.matiere)>
+<mat-tab-group dynamicHeight id="tabs">
 
-        <mat-card-content>
-          <p appRendu *ngIf="assignment.rendu; else nonSoumis">
-            Devoir intitulé {{assignment.nom}} a été rendu.
-          </p>
-          <ng-template #nonSoumis>
-            <p>Le devoir {{assignment.nom}} n'a pas été rendu.</p>
-          </ng-template>
-          <p>Auteur : {{assignment.auteur}}</p>
-          <p *ngIf="assignment.rendu;">Note : {{assignment.note}}</p>
-          <p *ngIf="assignment.rendu;">Remarques : {{assignment.remarques}}</p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-button routerLink="/assignment/{{this.assignment.id}}">EDIT</button>
-        </mat-card-actions>
-      </mat-card>
+  <mat-tab label="A rendre">
+    <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scroller>
+      <mat-list *cdkVirtualFor="let assignment of unfinishedAssignments">
+        <nav>
+          <mat-card class="example-card" style="margin: 10px" (click)="assignmentClique(assignment)">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image" [style]="this.getPortrait(assignment)"></div>
+              <mat-card-title>{{assignment.nom}}</mat-card-title>
+              <mat-card-subtitle>Date de rendu : {{assignment.dateDeRendu |date:'d-MM-YYYY HH:mm:ss'}}
+              </mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image [src]=getImage(assignment.matiere)>
 
-    </nav>
-  </mat-list>
-</cdk-virtual-scroll-viewport>
+            <mat-card-content>
+              <p appRendu *ngIf="assignment.rendu; else nonSoumis">
+                Devoir intitulé {{assignment.nom}} a été rendu.
+              </p>
+              <ng-template #nonSoumis>
+                <p>Le devoir {{assignment.nom}} n'a pas été rendu.</p>
+              </ng-template>
+              <p>Auteur : {{assignment.auteur}}</p>
+              <p *ngIf="assignment.rendu;">Note : {{assignment.note}}</p>
+              <p *ngIf="assignment.rendu;">Remarques : {{assignment.remarques}}</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button routerLink="/assignment/{{this.assignment.id}}">EDIT</button>
+            </mat-card-actions>
+          </mat-card>
+
+        </nav>
+      </mat-list>
+    </cdk-virtual-scroll-viewport>
+  </mat-tab>
+  <mat-tab label="Rendu">
+    <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scroller>
+      <mat-list *cdkVirtualFor="let assignment of finishedAssignments">
+        <nav>
+          <mat-card class="example-card" style="margin: 10px" (click)="assignmentClique(assignment)">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image" [style]="this.getPortrait(assignment)"></div>
+              <mat-card-title>{{assignment.nom}}</mat-card-title>
+              <mat-card-subtitle>Date de rendu : {{assignment.dateDeRendu |date:'d-MM-YYYY HH:mm:ss'}}
+              </mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image [src]=getImage(assignment.matiere)>
+
+            <mat-card-content>
+              <p appRendu *ngIf="assignment.rendu; else nonSoumis">
+                Devoir intitulé {{assignment.nom}} a été rendu.
+              </p>
+              <ng-template #nonSoumis>
+                <p>Le devoir {{assignment.nom}} n'a pas été rendu.</p>
+              </ng-template>
+              <p>Auteur : {{assignment.auteur}}</p>
+              <p *ngIf="assignment.rendu;">Note : {{assignment.note}}</p>
+              <p *ngIf="assignment.rendu;">Remarques : {{assignment.remarques}}</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button routerLink="/assignment/{{this.assignment.id}}">EDIT</button>
+            </mat-card-actions>
+          </mat-card>
+
+        </nav>
+      </mat-list>
+    </cdk-virtual-scroll-viewport>
+  </mat-tab>
+</mat-tab-group>
 
 <!--
 <app-component-detail [assignementTransmis]="assignmentSelectionne"></app-component-detail>

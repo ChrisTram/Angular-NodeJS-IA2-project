@@ -19,13 +19,13 @@
 }
 
 .example-viewport {
-  height: 55%;
-  width: 50%;
+  height: 60%;
   margin:auto;
-  margin-top: 30px;
+  margin-top: 15px;
   margin-bottom: 20px;
-  border: 1px solid black;
 }
+
+
 
 .example-item {
   height: 50px;

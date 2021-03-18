@@ -14,9 +14,32 @@ function getAssignments(req, res){
 */
 
 // AVEC PAGINATION
-function getAssignments(req, res) {
-  var aggregateQuery = Assignment.aggregate();
+function getFinishedAssignments(req, res) {
+  var aggregateQuery = Assignment.aggregate([{ $match: { "rendu": true } }]);
+
   Assignment.aggregatePaginate(
+
+    aggregateQuery,
+    {
+      page: parseInt(req.query.page) || 1,
+      limit: parseInt(req.query.limit) || 10,
+    },
+    (err, assignments) => {
+      if (err) {
+        res.send(err);
+      }
+
+      res.send(assignments);
+    }
+  );
+}
+
+// AVEC PAGINATION
+function getUnfinishedAssignments(req, res) {
+  var aggregateQuery = Assignment.aggregate([{ $match: { "rendu": false } }]);
+
+  Assignment.aggregatePaginate(
+
     aggregateQuery,
     {
       page: parseInt(req.query.page) || 1,
@@ -96,4 +119,4 @@ function deleteAssignment(req, res) {
 
 
 
-module.exports = { getAssignments, postAssignment, getAssignment, updateAssignment, deleteAssignment };
+module.exports = { postAssignment, getFinishedAssignments, getUnfinishedAssignments, getAssignment, updateAssignment, deleteAssignment };
