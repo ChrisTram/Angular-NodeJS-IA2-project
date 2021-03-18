@@ -1,4 +1,3 @@
-# Angular-NodeJS-IA2-project
 <p align="center">
   <a href="https://github.com/ChrisTram/Angular-NodeJS-IA2-project">
     <img src="https://angular-exercises.ninja-squad.com/assets/img/angular.png" alt="Logo" width=72 height=72>
