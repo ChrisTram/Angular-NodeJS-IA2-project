@@ -1,7 +1,7 @@
 <div class="container content">
   <mat-card *ngIf="assignementTransmis" class="example-card" style="margin: 10px">
     <mat-card-header>
-      <div mat-card-avatar class="example-header-image" [style]="this.getPicture(assignementTransmis)"></div>
+      <div mat-card-avatar class="example-header-image" [style]="this.getPortrait(assignementTransmis)"></div>
       <mat-card-title>{{assignementTransmis.nom}}</mat-card-title>
       <mat-card-subtitle>Date de rendu : {{assignementTransmis.dateDeRendu |date:'d-MM-YYYY HH:mm:ss'}}</mat-card-subtitle>
     </mat-card-header>

@@ -82,28 +82,28 @@ export class ComponentDetailComponent implements OnInit {
     return result
   }
 
-  getPicture(assignment: Assignment): string {
-    var genre = ""
-
-    if ( Number(assignment.id.toString()[1]) < 5) {
-      genre = "men"
-    } else {
-      genre = "women"
-    }
-    let nb;
-    
-    if(assignment.note != null) {
-      nb = assignment.note
-    } else {
-      nb = assignment.id.toString()[0]
-    }
-
+  getPortrait(assignment: Assignment): string {
     if (assignment.image === "null") {
+      var genre = ""
+      var idStr = assignment.id.toString()
+  
+      if ( Number(idStr[0]) < 5) {
+        genre = "men"
+      } else {
+        genre = "women"
+      }
+      let nb;
+
+      if(idStr[1] != "0" ){
+        nb = idStr[1] + idStr[2]
+      } else {
+        nb = idStr[2] + idStr[1]
+      }
+      
       assignment.image = "https://randomuser.me/api/portraits/" + genre + "/" + nb + ".jpg"
+      console.log(assignment.image)
     }
     return "background-image: url( '" + assignment.image + "'); background-size: cover;";
-
-
   }
 
   getImage(matiere: string): string {

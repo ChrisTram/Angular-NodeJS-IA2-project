@@ -1,17 +1,48 @@
-<div class="container" *ngIf="assignment">
+<div class="container content" *ngIf="assignment">
   <h1>Edition de l'assignment {{assignment.nom}}</h1>
-  <form ngForm class="form">
+  <form ngForm class="form" [formGroup]="formGroup">
     <mat-form-field>
-      <input matInput placeholder="Edition du nom" [(ngModel)]="nomAssignment"
-             name="assignment-name">
+      <mat-label>Nom de l'assignment</mat-label>
+      <input matInput placeholder="Nom de l'assignment" formControlName="nom" required>
     </mat-form-field>
+
     <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Edition de la date"
-             [(ngModel)]="dateDeRendu" name="date">
-      <mat-datepicker-toggle matSuffix [for]="picker">
-      </mat-datepicker-toggle>
+      <mat-label>Matiere</mat-label>
+      <mat-select formControlName="matiere" >
+        <mat-option *ngFor="let matiere of matieres" [value]="matiere.value" >
+          {{matiere.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Photo de l'enseignant</mat-label>
+      <input matInput placeholder="Photo de l'enseignant" formControlName="photo" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Nom de l'élève</mat-label>
+      <input matInput formControlName="auteur" placeholder="Nom de l'élève">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Date de rendu" formControlName="dateDeRendu" name="date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Note</mat-label>
+      <input type="number" matInput formControlName="note" placeholder="Note / 20">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Remarques</mat-label>
+      <input matInput formControlName="remarques" placeholder="Remarques">
+    </mat-form-field>
+
+
+
     <button mat-raised-button color="primary" (click)="onSaveAssignment()">
       Sauver
     </button>

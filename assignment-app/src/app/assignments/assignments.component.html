@@ -14,7 +14,7 @@
     <nav>
       <mat-card class="example-card" style="margin: 10px" (click)="assignmentClique(assignment)">
         <mat-card-header>
-          <div mat-card-avatar class="example-header-image" [style]="this.getPicture(assignment)"></div>
+          <div mat-card-avatar class="example-header-image" [style]="this.getPortrait(assignment)"></div>
           <mat-card-title>{{assignment.nom}}</mat-card-title>
           <mat-card-subtitle>Date de rendu : {{assignment.dateDeRendu |date:'d-MM-YYYY HH:mm:ss'}}</mat-card-subtitle>
         </mat-card-header>

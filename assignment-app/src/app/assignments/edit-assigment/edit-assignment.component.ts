@@ -1,7 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssignmentsService } from 'app/shared/assignments.service';
 import { Assignment } from '../assignment.model';
+
+interface Matiere {
+  value: string;
+  viewValue: string;
+}
+
 
 @Component({
   selector: 'app-edit-assignment',
@@ -10,21 +18,38 @@ import { Assignment } from '../assignment.model';
 })
 export class EditAssignmentComponent implements OnInit {
   assignment: Assignment;
-  nomAssignment: string;
-  dateDeRendu: Date;
+  formGroup:FormGroup;
+
+  matieres: Matiere[] = [
+    {value: 'Histoire', viewValue: 'Histoire'},
+    {value: 'Computer Vision', viewValue: 'Computer Vision'},
+    {value: 'BD', viewValue: 'BD'},
+    {value: 'WEB', viewValue: 'WEB'},
+    {value: 'JAVA', viewValue: 'JAVA'},
+    {value: 'Angular', viewValue: 'Angular'},
+    {value: 'Anglais', viewValue: 'Anglais'},
+    {value: 'Machine Learning', viewValue: 'Machine Learning'},
+    {value: 'Deep Learning', viewValue: 'Deep Learning'},
+    {value: 'SVT', viewValue: 'SVT'},
+    {value: 'Maths', viewValue: 'Maths'},
+    {value: 'SI', viewValue: 'SI'},
+    {value: 'Compta', viewValue: 'Compta'},
+
+  ];
 
   constructor(
     private assignmentsService: AssignmentsService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private _formBuilder: FormBuilder, 
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
     this.getAssignment();
 
-    console.log('Query Params : ');
-    console.log(this.route.snapshot.queryParams);
-    console.log('fragment : ' + this.route.snapshot.fragment);
+
+
   }
 
   getAssignment() {
@@ -33,19 +58,32 @@ export class EditAssignmentComponent implements OnInit {
     const id = +this.route.snapshot.params.id;
     this.assignmentsService.getAssignment(id).subscribe((assignment) => {
       this.assignment = assignment;
-      this.nomAssignment = assignment.nom;
-      this.dateDeRendu = assignment.dateDeRendu;
+      console.log('Query Params : ');
+      console.log(this.route.snapshot.queryParams);
+      console.log('fragment : ' + this.route.snapshot.fragment);
+  
+      this.formGroup = this._formBuilder.group({
+        nom: [this.assignment.nom, Validators.required],
+        matiere: [this.assignment.matiere, Validators.required],
+        photo: [this.assignment.image],
+        auteur: [this.assignment.auteur],
+        dateDeRendu: [this.assignment.dateDeRendu],
+        note: [this.assignment.note,[Validators.pattern("^[0-9]*$"),Validators.maxLength(2)]],
+        remarques: [this.assignment.remarques]
+      });
     });
   }
 
   onSaveAssignment() {
-    if (this.nomAssignment) {
-      this.assignment.nom = this.nomAssignment;
-    }
 
-    if (this.dateDeRendu) {
-      this.assignment.dateDeRendu = this.dateDeRendu;
-    }
+    this.assignment.nom = this.formGroup.value.nom;
+    this.assignment.matiere = this.formGroup.value.matiere;
+    this.assignment.image = this.formGroup.value.photo;
+    this.assignment.auteur = this.formGroup.value.auteur;
+    this.assignment.dateDeRendu = this.formGroup.value.dateDeRendu;
+    this.assignment.note = this.formGroup.value.note;
+    this.assignment.remarques = this.formGroup.value.remarques;
+
     this.assignmentsService
       .updateAssignment(this.assignment)
       .subscribe((message) => {
