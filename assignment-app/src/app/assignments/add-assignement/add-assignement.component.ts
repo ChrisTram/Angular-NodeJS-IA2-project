@@ -78,7 +78,7 @@ export class AddAssignementComponent implements OnInit {
       newAssignment.remarques = this.secondFormGroup.value.remarques;
 
       console.log(this.secondFormGroup.value.note)
-      if (this.secondFormGroup.value.note != "") {
+      if (typeof this.secondFormGroup.value.note === 'number') {
         newAssignment.rendu = true
         newAssignment.note = Number(this.secondFormGroup.value.note);
       } else {

@@ -1,5 +1,7 @@
 
 <div class="content">
+  <p>Deux utilisateurs avec mot de passes identiques au nom : admin et toto</p>
+
 <mat-slide-toggle color="primary"  [disabled]="this.isLogin() != true" [checked]="this.isLogin() == true" (change)="this.logOut()">
     <span *ngIf="this.isLogin() == true; else deconnecte">Connecté, Bienvenue {{this.getUserStr()}}<br></span>
     <ng-template #deconnecte>

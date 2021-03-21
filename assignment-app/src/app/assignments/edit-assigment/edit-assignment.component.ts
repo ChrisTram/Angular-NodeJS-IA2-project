@@ -85,7 +85,7 @@ export class EditAssignmentComponent implements OnInit {
     this.assignment.remarques = this.formGroup.value.remarques;
 
     console.log(this.formGroup.value.note)
-    if (this.formGroup.value.note != "") {
+    if (typeof this.formGroup.value.note === 'number') {
       this.assignment.rendu = true
       this.assignment.note = Number(this.formGroup.value.note);
     } else {

@@ -19,7 +19,7 @@
       <p *ngIf="assignementTransmis.rendu;">Remarques : {{assignementTransmis.remarques}}</p>
     </mat-card-content>
     <mat-card-actions>
-      <mat-checkbox *ngIf="!assignementTransmis.rendu" (click)="onAssignementRendu()" [disabled]="!loggedIn()">
+      <mat-checkbox *ngIf="!assignementTransmis.rendu" (click)="onAssignementRendu()" [disabled]="!isAdmin()">
         Assignment rendu
       </mat-checkbox>
   
